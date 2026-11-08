@@ -1,0 +1,86 @@
+# EJERCICIO 1: ANÁLISIS DE UNA MATRIZ DE VENTAS 
+ventas = [
+    [12, 15, 10, 18],
+    [8, 14, 16, 12],
+    [20, 18, 15, 22]
+]
+vendedores = ["Vendedor 1", "Vendedor 2", "Vendedor 3"]
+semanas = ["Semana 1", "Semana 2", "Semana 3", "Semana 4"]
+
+print(" 1. Matriz completa de ventas ")
+for i in range(len(ventas)):
+    print(f" {vendedores[i]} ")
+    for j in range(len(ventas[i])):
+        print(f" {semanas[j]}: {ventas[i][j]}M")
+print()
+totales_vendedores = []
+for i in range(len(ventas)):
+    acumulador_vendedor = 0
+    for j in range(len(ventas[i])):
+        acumulador_vendedor += ventas[i][j]
+    totales_vendedores.append(acumulador_vendedor)
+
+print(" 2. Total de ventas por vendedor ")
+for i in range(len(vendedores)):
+    print(f"{vendedores[i]}: {totales_vendedores[i]}M")
+print()
+totales_semanas = []
+num_semanas = len(ventas[0])
+num_vendedores = len(ventas)
+for j in range(num_semanas):
+    acumulador_semana = 0
+    for i in range(num_vendedores):
+        acumulador_semana += ventas[i][j]
+    totales_semanas.append(acumulador_semana)
+
+print(" 3. Total de ventas por semana ")
+for j in range(len(semanas)):
+    print(f" {semanas[j]}: {totales_semanas[j]}M")
+print()
+max_ventas_vendedor = totales_vendedores[0]
+indice_mejor_vendedor = 0
+for i in range(1, len(totales_vendedores)):
+    if totales_vendedores[i] > max_ventas_vendedor:
+        max_ventas_vendedor = totales_vendedores[i]
+        indice_mejor_vendedor = i
+
+print(" 4. Vendedor con mayor total de ventas")
+print(f"El vendedor con mayores ventas es {vendedores[indice_mejor_vendedor]} con un total de {max_ventas_vendedor}M")
+max_ventas_semana = totales_semanas[0]
+indice_mejor_semana = 0
+for j in range(1, len(totales_semanas)):
+    if totales_semanas[j] > max_ventas_semana:
+        max_ventas_semana = totales_semanas[j]
+        indice_mejor_semana = j
+
+print(" 5. Semana con mayor volumen de ventas ")
+print(f"La semana con mayor volumen de ventas fue la {semanas[indice_mejor_semana]} con un total de {max_ventas_semana}M")
+suma_total_general = 0
+cantidad_elementos = 0
+for i in range(len(ventas)):
+    for j in range(len(ventas[i])):
+        suma_total_general += ventas[i][j]
+        cantidad_elementos += 1
+promedio_general = suma_total_general / cantidad_elementos
+
+print(" 6. Promedio general de ventas ")
+print(f"El promedio general de ventas de la empresa es: {promedio_general}M")
+
+print(" 7. Modificación de ventas ")
+print(f"Matriz actual: ")
+for i in range(len(ventas)):
+    print(f"[{i}] {vendedores[i]}: {ventas[i]}")
+try: 
+    fila_mod = int(input("Ingrese el indice del vendedor (0 a 2): "))
+    col_mod = int(input("Ingrese el indice de la semana (0 a 3): "))
+    nuevo_valor = float(input("Ingrese el nuevo valor de ventas (millones): "))
+    if 0 <= fila_mod < len(ventas) and 0 <= col_mod < len(ventas[0]):
+        ventas[fila_mod][col_mod] = nuevo_valor
+        print(f"\nModificación exitosa")
+        print(f"Matriz actualizada para (Fila {fila_mod}, Columna {col_mod}): ")   
+        for i in range(len(ventas)): 
+            print(f"[{i}] {vendedores[i]}: {ventas[i]}")     
+    else: 
+        print("Los indices ingresados estan fuera del rango válido")
+except ValueError:
+    print("Ingresar valores numéricos válidos")
